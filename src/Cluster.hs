@@ -1,19 +1,20 @@
 -----------------------------------------------------------------------------
 --
 -- Module      :  Cluster
--- Copyright   :  
+-- Copyright   :
 -- License     :  AllRightsReserved
 --
--- Maintainer  :  
--- Stability   :  
--- Portability :  
+-- Maintainer  :
+-- Stability   :
+-- Portability :
 --
 -- |
 --
 -----------------------------------------------------------------------------
 
 module Cluster (
-      Cluster (..)
+      Cluster
+    , cluster
     , append
 ) where
 
@@ -29,6 +30,7 @@ type Connection = (Int, Int)
 
 data Cluster = Cluster Int [Connection] (Map Direction [Connection]) deriving (Show)
 
+cluster num conns sockets = Cluster num conns sockets
 
 append (Cluster len cons _) matrix num = do
     let shift = len * num

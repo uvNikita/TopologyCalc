@@ -1,12 +1,12 @@
 -----------------------------------------------------------------------------
 --
 -- Module      :  Direction
--- Copyright   :  
+-- Copyright   :
 -- License     :  AllRightsReserved
 --
--- Maintainer  :  
--- Stability   :  
--- Portability :  
+-- Maintainer  :
+-- Stability   :
+-- Portability :
 --
 -- |
 --
@@ -17,4 +17,4 @@ module Direction (
 ) where
 
 
-data Direction = FromLeft | FromRight | FromUp | FromDown deriving (Show, Eq)
+data Direction = FromLeft | FromRight | FromUp | FromDown deriving (Show, Eq, Ord)
