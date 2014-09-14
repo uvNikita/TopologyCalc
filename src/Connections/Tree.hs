@@ -24,7 +24,7 @@ treeG = ConnectionsGen tree'
 
 tree' levels = Connections num cs
     where lastLevel = levels - 1
-          num = 2 ^ lastLevel
+          num = 2 ^ levels - 1
           cs = concatMap connections [0..lastLevel]
 
 
