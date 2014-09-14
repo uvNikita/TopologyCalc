@@ -13,7 +13,7 @@ executable PKS
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: Record Utils Topology Tree
+    other-modules: Cluster Cluster.Second Record Utils Connections Connections.Tree Topology Direction
  
 test-suite test-PKS
     build-depends: QuickCheck -any, array -any, base -any, boxes -any,

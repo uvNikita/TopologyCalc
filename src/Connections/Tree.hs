@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 --
--- Module      :  Topology
+-- Module      :  Connections.Tree
 -- Copyright   :
 -- License     :  AllRightsReserved
 --
@@ -12,18 +12,17 @@
 --
 -----------------------------------------------------------------------------
 
-module Tree (
-    tree
+module Connections.Tree (
+    treeG
 ) where
 
-import Topology
+import Connections
 
-tree :: TopologyGen
--- topology :: Int -> Int -> [(Int, Int, Direction)]
-tree = TopologyGen tree'
+treeG :: ConnectionsGen
+treeG = ConnectionsGen tree'
 
 
-tree' levels = Topology num cs
+tree' levels = Connections num cs
     where lastLevel = levels - 1
           num = 2 ^ lastLevel
           cs = concatMap connections [0..lastLevel]
@@ -34,11 +33,14 @@ bounds level = (fid, lid)
     where fid = 2 ^ level - 1
           lid = 2 ^ (level + 1) - 2
 
+
 parent id = (id - 1) `div` 2
+
 
 connections 0 = []
 connections level | even level = evenConns level
                   | otherwise = oddConns level
+
 
 evenConns level = first : last : parents
     where [(ppfid, pplid), (pfid, plid), (fid, lid)] = map bounds [level - 2, level - 1, level]
@@ -46,6 +48,7 @@ evenConns level = first : last : parents
           last = (lid, pplid, FromRight)
           connParent id = (id, parent id, FromUp)
           parents = map connParent [fid .. lid]
+
 
 oddConns level = inLevel ++ parents
     where (fid, lid) = bounds level

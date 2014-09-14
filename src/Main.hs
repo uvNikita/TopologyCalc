@@ -1,4 +1,4 @@
 import Record
-import Tree
+import Topology
 
 main = undefined
