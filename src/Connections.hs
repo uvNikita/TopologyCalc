@@ -14,7 +14,7 @@
 
 module Connections (
       ConnectionsGen(..)
-    , Connections(..)
+    , Connections (..)
     , Direction(..)
 ) where
 
@@ -22,6 +22,11 @@ import Direction (Direction(..))
 
 type Connection = (Int, Int, Direction)
 
-data Connections = Connections Int [Connection] deriving (Show)
+data Connections =
+    Connections { -- | number of clusters
+                  clusterNum :: Int,
+                  -- | intercluster connections
+                  conns :: [Connection]
+                } deriving (Show)
 
 newtype ConnectionsGen = ConnectionsGen { generate :: Int -> Connections }

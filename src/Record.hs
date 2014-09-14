@@ -28,7 +28,7 @@ data Record = Record {
     , power :: Int
 } deriving (Show)
 
-record diam power = Record diam power
+record = Record
 
 
 rowsToBox :: [[String]] -> Box
