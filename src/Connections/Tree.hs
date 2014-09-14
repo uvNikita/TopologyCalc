@@ -44,15 +44,15 @@ connections level | even level = evenConns level
 
 evenConns level = first : last : parents
     where [(ppfid, pplid), (pfid, plid), (fid, lid)] = map bounds [level - 2, level - 1, level]
-          first = (fid, ppfid, FromLeft)
-          last = (lid, pplid, FromRight)
-          connParent id = (id, parent id, FromUp)
+          first = (fid, ppfid, FromDown)
+          last = (lid, pplid, FromDown)
+          connParent id = (parent id, id, FromUp)
           parents = map connParent [fid .. lid]
 
 
 oddConns level = inLevel ++ parents
     where (fid, lid) = bounds level
-          inLevel = (fid, lid, FromLeft) : map connLeft [fid + 1 .. lid]
+          inLevel = (lid, fid, FromLeft) : map connLeft [fid + 1 .. lid]
           parents = map connParent [fid .. lid]
-          connLeft id = (id, id - 1, FromLeft)
-          connParent id = (id, parent id, FromUp)
+          connLeft id = (id - 1, id, FromLeft)
+          connParent id = (parent id, id, FromUp)
