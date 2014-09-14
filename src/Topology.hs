@@ -46,7 +46,7 @@ adjArray (Topology cluster conns) = runST $ do
     let clusterNum = Connections.clusterNum conns
     let nodesInCluster = Cluster.nodesNum cluster
     let nodesNum = clusterNum * nodesInCluster
-    matrix <- newSTArray ((0, 0), (nodesNum - 1, nodesNum - 1)) 0
+    matrix <- newSTArray ((1, 1), (nodesNum, nodesNum)) 0
     mapM_ (append cluster matrix) [0 .. clusterNum - 1]
     forM_ (Connections.conns conns) (connect cluster matrix)
     freeze matrix
@@ -54,11 +54,3 @@ adjArray (Topology cluster conns) = runST $ do
 
 adjMatrix :: Topology -> Matrix Int
 adjMatrix = fromArray . adjArray
-
-test :: Array (Int, Int) Int
-test = runST $ do
-    matrix <- newSTArray ((0, 0), (10, 10)) 0
-    mapM_ (append second matrix) [0, 2]
-    freeze matrix
-    where newSTArray :: Ix i => (i,i) -> e -> ST s (STArray s i e)
-          newSTArray = newArray
