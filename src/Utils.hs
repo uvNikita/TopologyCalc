@@ -13,11 +13,20 @@
 -----------------------------------------------------------------------------
 
 module Utils (
-    fromArray
+      fromArray
+    , newSTArray
 ) where
 
-import Data.Array (bounds, elems, Array)
+import Data.Array (bounds, elems, Array, Ix)
+import Data.Array.ST (STArray, newArray)
 import Data.Matrix (Matrix, fromList)
+
+import Control.Monad.ST (ST)
+
+
+newSTArray :: Ix i => (i,i) -> e -> ST s (STArray s i e)
+newSTArray = newArray
+
 
 fromArray :: Array (Int, Int) a -> Matrix a
 fromArray array = fromList rows columns . elems $ array

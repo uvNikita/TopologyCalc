@@ -18,14 +18,14 @@ module Topology (
     , adjArray
 ) where
 
-import           Data.Array (Array, Ix)
-import           Data.Array.ST (writeArray, newArray, freeze, STArray)
+import           Data.Array (Array)
+import           Data.Array.ST (writeArray, freeze)
 import           Data.Matrix (Matrix)
 import qualified Data.Map as Map
 import           Control.Monad.ST (runST, ST)
 import           Control.Monad (forM_, mapM_)
 
-import           Utils
+import           Utils (newSTArray, fromArray)
 import           Cluster (Cluster, append, connect)
 import           Cluster.Second (second)
 import           Connections (Connections)
@@ -35,10 +35,6 @@ import           Connections.Tree (treeG)
 
 
 data Topology = Topology Cluster Connections
-
-
-newSTArray :: Ix i => (i,i) -> e -> ST s (STArray s i e)
-newSTArray = newArray
 
 
 adjArray :: Topology -> Array (Int, Int) Int

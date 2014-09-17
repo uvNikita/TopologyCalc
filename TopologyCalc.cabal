@@ -9,15 +9,16 @@ data-dir: ""
  
 executable PKS
     build-depends: QuickCheck -any, array -any, base -any, boxes -any,
-                   containers -any, matrix -any
+                   containers -any, matrix -any, parallel -any, vector -any
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: Cluster Cluster.Second Record Utils Connections Connections.Tree Topology Direction
+    other-modules: Connections Record Cluster Utils Topology Analysis
+                   Direction Cluster.Second Connections.Tree
  
 test-suite test-PKS
     build-depends: QuickCheck -any, array -any, base -any, boxes -any,
-                   containers -any, matrix -any
+                   containers -any, matrix -any, parallel -any, vector -any
     type: exitcode-stdio-1.0
     main-is: Main.hs
     buildable: True
