@@ -68,7 +68,7 @@ stats :: Matrix Int -> Record
 stats adjMatrix = Record {nodes = n, power, diam, avgDiam, traffic, cost}
     where power = fromIntegral $ maximum . map V.sum $ adjRows
           diam = fromIntegral $ maximum . map V.maximum $ distRows
-          avgDiam = (fromIntegral $ sum . map V.sum $ distRows) / (n' * (n' - 1))
+          avgDiam = fromIntegral ( sum . map V.sum $ distRows) / (n' * (n' - 1))
           traffic = (2 * avgDiam) / power
           cost = diam * n' * power
           n = nrows adjMatrix
