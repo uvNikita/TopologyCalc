@@ -15,7 +15,7 @@ executable PKS
     extensions: NamedFieldPuns
     hs-source-dirs: src
     other-modules: Connections Record Cluster Utils Topology Analysis
-                   Direction Cluster.Second Connections.Tree
+                   Direction Connections.Tree
  
 test-suite test-PKS
     build-depends: QuickCheck -any, array -any, base -any, boxes -any,

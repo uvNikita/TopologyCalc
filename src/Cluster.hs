@@ -21,6 +21,8 @@ module Cluster (
     , nodesNum
     , adjList
     , sockets
+    , second
+    , single
 ) where
 
 import Data.Map (Map, (!))
@@ -64,3 +66,27 @@ connect (Cluster len _ sockets) matrix (from, to, direction) = do
     forM_ conns $ \ (i, j) -> do
         writeArray matrix (fromShift + i, toShift + j) 1
         writeArray matrix (toShift + j, fromShift + i) 1
+
+
+single = cluster
+    1
+    []
+    (Map.fromList [(FromLeft,  [(1,1)]),
+                   (FromRight, [(1,1)]),
+                   (FromDown,  [(1,1)]),
+                   (FromUp,    [(1,1)])])
+
+
+second = cluster
+    8
+    [(1, 5), (1, 3),
+     (2, 6), (2, 4),
+     (3, 7),
+     (4, 8),
+     (5, 6), (5, 7), (5, 8),
+     (6, 7), (6, 8),
+     (7, 8)]
+    (Map.fromList [(FromLeft,  [(2, 1), (3, 4)]),
+                   (FromRight, [(1, 2), (4, 3)]),
+                   (FromDown,  [(1, 4), (2, 3)]),
+                   (FromUp,    [(4, 1), (3, 2)])])

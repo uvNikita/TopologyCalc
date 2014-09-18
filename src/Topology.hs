@@ -27,7 +27,6 @@ import           Control.Monad (forM_, mapM_)
 
 import           Utils (newSTArray, fromArray)
 import           Cluster (Cluster, append, connect)
-import           Cluster.Second (second)
 import           Connections (Connections)
 import qualified Connections
 import qualified Cluster

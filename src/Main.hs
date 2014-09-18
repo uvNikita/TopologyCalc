@@ -1,14 +1,14 @@
-import Record
-import Topology
+import Record (printRecords)
+import Topology (Topology(..), adjMatrix)
 import Connections.Tree (treeG)
-import Connections
-import Cluster.Second
-import Analysis
+import Connections (generate)
+import Analysis (stats)
 import System.Environment (getArgs)
+import Cluster
 
 test levels = stats adj
     where treeC = generate treeG levels
-          topology = Topology second treeC
+          topology = Topology single treeC
           adj = adjMatrix topology
 
 
