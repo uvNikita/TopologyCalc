@@ -1,3 +1,4 @@
+{-# LANGUAGE NamedFieldPuns #-}
 -----------------------------------------------------------------------------
 --
 -- Module      :  Analysis
@@ -13,7 +14,8 @@
 -----------------------------------------------------------------------------
 
 module Analysis (
-    minDistance
+      minDistance
+    , stats
 ) where
 
 
@@ -28,6 +30,7 @@ import           Control.Monad.ST (runST, ST)
 import           Control.Parallel.Strategies (parMap, rdeepseq)
 
 import           Utils (newSTArray)
+import           Record (Record(..))
 
 
 minDistance :: Matrix Int -> Matrix Int
@@ -59,3 +62,17 @@ dijkstra adjMatrix src = runST $ do
                                 return $ Set.insert (new, v) queue'
     loop (Set.singleton (0, src))
     freeze minDist
+
+
+stats :: Matrix Int -> Record
+stats adjMatrix = Record {nodes = n, power, diam, avgDiam, traffic, cost}
+    where power = fromIntegral $ maximum . map V.sum $ adjRows
+          diam = fromIntegral $ maximum . map V.maximum $ distRows
+          avgDiam = (fromIntegral $ sum . map V.sum $ distRows) / (n' * (n' - 1))
+          traffic = (2 * avgDiam) / power
+          cost = diam * n' * power
+          n = nrows adjMatrix
+          n' = fromIntegral n
+          adjRows = map (\ i -> getRow i adjMatrix) [1 .. n]
+          dist = minDistance adjMatrix
+          distRows = map (\ i -> getRow i dist) [1 .. n]

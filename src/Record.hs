@@ -14,8 +14,8 @@
 -----------------------------------------------------------------------------
 
 module Record (
-      record
-    , printRecords
+      printRecords
+    , Record (..)
 ) where
 
 
@@ -24,11 +24,13 @@ import Data.List (transpose)
 
 
 data Record = Record {
-      diam :: Int
-    , power :: Int
+      nodes :: Int
+    , power :: Float
+    , diam :: Float
+    , avgDiam :: Float
+    , traffic :: Float
+    , cost :: Float
 } deriving (Show)
-
-record = Record
 
 
 rowsToBox :: [[String]] -> Box
@@ -38,13 +40,11 @@ rowsToBox rows = box
           colToBox = vcat left . map text
 
 toRow :: Record -> [String]
-toRow (Record {diam, power}) = map show [diam, power]
+toRow rec = show (nodes rec) : map show [power rec, diam rec, avgDiam rec, traffic rec, cost rec]
 
-headRow = ["D", "P"]
+headRow = ["N", "S", "D", "avg(D)", "T", "C"]
 
 recordsBox :: [Record] -> Box
 recordsBox records = rowsToBox (headRow : map toRow records)
-
-records = [Record 1 2, Record 3 4]
 
 printRecords = printBox . recordsBox

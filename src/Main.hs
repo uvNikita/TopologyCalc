@@ -6,7 +6,7 @@ import Cluster.Second
 import Analysis
 import System.Environment (getArgs)
 
-test levels = minDistance adj
+test levels = stats adj
     where treeC = generate treeG levels
           topology = Topology second treeC
           adj = adjMatrix topology
@@ -15,4 +15,5 @@ test levels = minDistance adj
 main = do
     [n'] <- getArgs
     let n = read n' :: Int
-    print $ test n
+    let recs = map test [1 .. n]
+    printRecords recs

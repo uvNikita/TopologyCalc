@@ -12,6 +12,7 @@ executable PKS
                    containers -any, matrix -any, parallel -any, vector -any
     main-is: Main.hs
     buildable: True
+    extensions: NamedFieldPuns
     hs-source-dirs: src
     other-modules: Connections Record Cluster Utils Topology Analysis
                    Direction Cluster.Second Connections.Tree
