@@ -1,4 +1,4 @@
-import Record (printRecords)
+import Record (render, Record)
 import Topology (Topology(..), adjMatrix)
 import Connections.Tree (treeG)
 import Connections (generate, ConnectionsGen)
@@ -9,6 +9,7 @@ import Cluster
 
 data Variant = Variant Cluster ConnectionsGen
 
+calcStats :: Variant -> Int -> [Record]
 calcStats (Variant cluster conGen) levels =
     map stats adjs
     where connections = map (generate conGen) [1 .. levels]
@@ -16,11 +17,12 @@ calcStats (Variant cluster conGen) levels =
           adjs = map adjMatrix topologies
 
 
+lab2 :: Variant
 lab2 = Variant second treeG
 
-
+main :: IO ()
 main = do
     [n'] <- getArgs
     let n = read n' :: Int
     let recs = calcStats lab2 n
-    printRecords recs
+    putStrLn $ render recs

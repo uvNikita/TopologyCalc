@@ -15,7 +15,6 @@
 
 module Cluster (
       Cluster
-    , cluster
     , append
     , connect
     , nodesNum
@@ -26,8 +25,8 @@ module Cluster (
 ) where
 
 import Data.Map (Map, (!))
-import Data.Array.ST (writeArray, newArray, freeze, STArray)
-import Control.Monad (forM_, mapM_)
+import Data.Array.ST (writeArray)
+import Control.Monad (forM_)
 import Data.Array.Base (MArray)
 import qualified Data.Map as Map
 
@@ -68,6 +67,7 @@ connect (Cluster len _ sockets) matrix (from, to, direction) = do
         writeArray matrix (toShift + j, fromShift + i) 1
 
 
+single :: Cluster
 single = cluster
     1
     []
@@ -76,7 +76,7 @@ single = cluster
                    (FromDown,  [(1,1)]),
                    (FromUp,    [(1,1)])])
 
-
+second :: Cluster
 second = cluster
     8
     [(1, 5), (1, 3),

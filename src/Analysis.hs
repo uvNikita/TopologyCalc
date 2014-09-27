@@ -26,7 +26,7 @@ import           Data.Vector (foldM, findIndices)
 import qualified Data.Vector as V
 import qualified Data.Set as Set
 
-import           Control.Monad.ST (runST, ST)
+import           Control.Monad.ST (runST)
 import           Control.Parallel.Strategies (parMap, rdeepseq)
 
 import           Utils (newSTArray)
@@ -51,15 +51,15 @@ dijkstra adjMatrix src = runST $ do
             Nothing -> return ()
             Just ((dist, u), queue') -> foldM step queue' (neighbors u) >>= loop
                 where new = dist + 1
-                      step queue v = do
+                      step q v = do
                         old <- readArray minDist v
                         if new >= old
                             then
-                                return queue
+                                return q
                             else do
-                                let queue' = Set.delete (old, v) queue
+                                let q' = Set.delete (old, v) q
                                 writeArray minDist v new
-                                return $ Set.insert (new, v) queue'
+                                return $ Set.insert (new, v) q'
     loop (Set.singleton (0, src))
     freeze minDist
 

@@ -21,7 +21,7 @@ import Connections
 treeG :: ConnectionsGen
 treeG = ConnectionsGen tree'
 
-
+tree' :: Int -> Connections
 tree' levels = Connections num cs
     where lastLevel = levels - 1
           num = 2 ^ levels - 1
@@ -34,25 +34,29 @@ bounds level = (fid, lid)
           lid = 2 ^ (level + 1) - 2
 
 
-parent id = (id - 1) `div` 2
+parent :: Integral a => a -> a
+parent idx = (idx - 1) `div` 2
 
 
+connections :: Int -> [ClusterConnection]
 connections 0 = []
 connections level | even level = evenConns level
                   | otherwise = oddConns level
 
 
-evenConns level = first : last : parents
-    where [(ppfid, pplid), (pfid, plid), (fid, lid)] = map bounds [level - 2, level - 1, level]
-          first = (fid, ppfid, FromDown)
-          last = (lid, pplid, FromDown)
-          connParent id = (parent id, id, FromUp)
+evenConns :: Int -> [ClusterConnection]
+evenConns level = fc : lc : parents
+    where [(ppfid, pplid), (fid, lid)] = map bounds [level - 2, level]
+          fc = (fid, ppfid, FromDown)
+          lc = (lid, pplid, FromDown)
+          connParent idx = (parent idx, idx, FromUp)
           parents = map connParent [fid .. lid]
 
 
+oddConns :: Int -> [ClusterConnection]
 oddConns level = inLevel ++ parents
     where (fid, lid) = bounds level
           inLevel = (lid, fid, FromLeft) : map connLeft [fid + 1 .. lid]
           parents = map connParent [fid .. lid]
-          connLeft id = (id - 1, id, FromLeft)
-          connParent id = (parent id, id, FromUp)
+          connLeft idx = (idx - 1, idx, FromLeft)
+          connParent idx = (parent idx, idx, FromUp)

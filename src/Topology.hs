@@ -19,18 +19,16 @@ module Topology (
 ) where
 
 import           Data.Array (Array)
-import           Data.Array.ST (writeArray, freeze)
+import           Data.Array.ST (freeze)
 import           Data.Matrix (Matrix)
-import qualified Data.Map as Map
-import           Control.Monad.ST (runST, ST)
-import           Control.Monad (forM_, mapM_)
+import           Control.Monad.ST (runST)
+import           Control.Monad (forM_)
 
 import           Utils (newSTArray, fromArray)
 import           Cluster (Cluster, append, connect)
 import           Connections (Connections)
 import qualified Connections
 import qualified Cluster
-import           Connections.Tree (treeG)
 
 
 data Topology = Topology Cluster Connections

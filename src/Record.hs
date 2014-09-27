@@ -14,13 +14,14 @@
 -----------------------------------------------------------------------------
 
 module Record (
-      printRecords
+      render
     , Record (..)
 ) where
 
 
-import Text.PrettyPrint.Boxes (Box, printBox, vcat, hsep, left, text)
-import Data.List (transpose)
+import           Text.PrettyPrint.Boxes (Box, vcat, hsep, left, text)
+import qualified Text.PrettyPrint.Boxes as B
+import           Data.List (transpose)
 
 
 data Record = Record {
@@ -42,9 +43,11 @@ rowsToBox rows = box
 toRow :: Record -> [String]
 toRow rec = show (nodes rec) : map show [power rec, diam rec, avgDiam rec, traffic rec, cost rec]
 
+headRow :: [String]
 headRow = ["N", "S", "D", "avg(D)", "T", "C"]
 
 recordsBox :: [Record] -> Box
 recordsBox records = rowsToBox (headRow : map toRow records)
 
-printRecords = printBox . recordsBox
+render :: [Record] -> String
+render = B.render . recordsBox
