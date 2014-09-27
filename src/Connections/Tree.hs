@@ -17,15 +17,15 @@ module Connections.Tree (
 ) where
 
 import Connections
+import Direction
 
 treeG :: ConnectionsGen
 treeG = ConnectionsGen tree'
 
 tree' :: Int -> Connections
 tree' levels = Connections num cs
-    where lastLevel = levels - 1
-          num = 2 ^ levels - 1
-          cs = concatMap connections [0..lastLevel]
+    where num = 2 ^ levels - 1
+          cs = concatMap connections [0 .. levels - 1]
 
 
 bounds :: Int -> (Int, Int)

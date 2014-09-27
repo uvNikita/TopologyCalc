@@ -12,8 +12,9 @@ executable TopologyCalc
                    containers -any, matrix -any, parallel -any, vector -any
     main-is: Main.hs
     buildable: True
-    ghc-options: -Wall -threaded -with-rtsopts=-N
     extensions: NamedFieldPuns
     hs-source-dirs: src
-    other-modules: Connections Record Cluster Utils Topology Analysis
-                   Direction Connections.Tree
+    other-modules: Connections.Ring Connections Record Cluster Utils
+                   Topology Analysis Direction Connections.Tree
+    ghc-options: -Wall -threaded -with-rtsopts=-N
+ 

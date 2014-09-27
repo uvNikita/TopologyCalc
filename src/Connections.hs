@@ -15,7 +15,6 @@
 module Connections (
       ConnectionsGen(..)
     , Connections (..)
-    , Direction(..)
     , ClusterConnection
 ) where
 

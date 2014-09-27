@@ -22,6 +22,7 @@ module Cluster (
     , sockets
     , second
     , single
+    , square
 ) where
 
 import Data.Map (Map, (!))
@@ -71,10 +72,10 @@ single :: Cluster
 single = cluster
     1
     []
-    (Map.fromList [(FromLeft,  [(1,1)]),
-                   (FromRight, [(1,1)]),
-                   (FromDown,  [(1,1)]),
-                   (FromUp,    [(1,1)])])
+    (Map.fromList [(FromLeft,  [(1, 1)]),
+                   (FromRight, [(1, 1)]),
+                   (FromDown,  [(1, 1)]),
+                   (FromUp,    [(1, 1)])])
 
 second :: Cluster
 second = cluster
@@ -90,3 +91,15 @@ second = cluster
                    (FromRight, [(1, 2), (4, 3)]),
                    (FromDown,  [(1, 4), (2, 3)]),
                    (FromUp,    [(4, 1), (3, 2)])])
+
+
+square :: Cluster
+square = cluster
+    8
+    [(1, 2), (2, 3), (3, 4), (4, 1),
+     (1, 5), (2, 6), (3, 7), (4, 8),
+     (5, 6), (6, 7), (7, 8), (8, 5)]
+    (Map.fromList [(FromLeft, [(2, 1), (3, 4)]),
+                   (FromRight, [(1, 2), (4, 3)]),
+                   (FromDown, [(5, 8), (6, 7)]),
+                   (FromUp, [(8, 5), (7, 6)])])

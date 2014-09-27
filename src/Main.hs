@@ -1,6 +1,7 @@
 import Record (render, Record)
 import Topology (Topology(..), adjMatrix)
 import Connections.Tree (treeG)
+import Connections.Ring (ringG)
 import Connections (generate, ConnectionsGen)
 import Analysis (stats)
 import System.Environment (getArgs)
@@ -17,12 +18,16 @@ calcStats (Variant cluster conGen) levels =
           adjs = map adjMatrix topologies
 
 
-lab2 :: Variant
-lab2 = Variant second treeG
+variants :: [(String, Variant)]
+variants = [("lab1", Variant second treeG),
+            ("lab2", Variant square ringG)]
 
 main :: IO ()
 main = do
-    [n'] <- getArgs
+    [variantName, n'] <- getArgs
     let n = read n' :: Int
-    let recs = calcStats lab2 n
-    putStrLn $ render recs
+    case lookup variantName variants of
+        Nothing -> putStrLn $ "Unknown variant: " ++ variantName
+        Just variant -> do
+            let recs = calcStats variant n
+            putStrLn $ render recs
