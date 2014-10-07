@@ -8,7 +8,7 @@ description: Calculate the characteristics of the topology of a scalable compute
 data-dir: ""
  
 executable TopologyCalc
-    build-depends: QuickCheck -any, array -any, base -any, boxes -any,
+    build-depends: array -any, base -any, boxes -any,
                    containers -any, matrix -any, parallel -any, vector -any
     main-is: Main.hs
     buildable: True
