@@ -2,6 +2,7 @@ import Record (render, Record)
 import Topology (Topology(..), adjMatrix)
 import Connections.Tree (treeG)
 import Connections.Ring (ringG)
+import Connections.Mash (mashG)
 import Connections (generate, ConnectionsGen)
 import Analysis (stats)
 import System.Environment (getArgs)
@@ -20,7 +21,8 @@ calcStats (Variant cluster conGen) levels =
 
 variants :: [(String, Variant)]
 variants = [("lab1", Variant second treeG),
-            ("lab2", Variant square ringG)]
+            ("lab2", Variant square ringG),
+            ("lab3", Variant pyramid mashG)]
 
 main :: IO ()
 main = do

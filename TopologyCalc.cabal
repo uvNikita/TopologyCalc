@@ -6,7 +6,7 @@ license: AllRightsReserved
 license-file: ""
 description: Calculate the characteristics of the topology of a scalable computer sysytem.
 data-dir: ""
- 
+
 executable TopologyCalc
     build-depends: array -any, base -any, boxes -any,
                    containers -any, matrix -any, parallel -any, vector -any
@@ -14,7 +14,6 @@ executable TopologyCalc
     buildable: True
     extensions: NamedFieldPuns
     hs-source-dirs: src
-    other-modules: Connections.Ring Connections Record Cluster Utils
-                   Topology Analysis Direction Connections.Tree
+    other-modules: Record Cluster Utils Topology Analysis Direction
+                   Connections.Ring Connections Connections.Tree Connections.Mash
     ghc-options: -Wall -threaded -with-rtsopts=-N
- 

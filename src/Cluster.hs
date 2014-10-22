@@ -23,6 +23,7 @@ module Cluster (
     , second
     , single
     , square
+    , pyramid
 ) where
 
 import Data.Map (Map, (!))
@@ -47,6 +48,7 @@ data Cluster =
               sockets :: Map Direction [Connection]
             } deriving (Show)
 
+cluster :: Int -> [Connection] -> Map Direction [Connection] -> Cluster
 cluster = Cluster
 
 
@@ -103,3 +105,31 @@ square = cluster
                    (FromRight, [(1, 2), (4, 3)]),
                    (FromDown, [(5, 8), (6, 7)]),
                    (FromUp, [(8, 5), (7, 6)])])
+
+
+--      2--\
+--     / \  \
+--    5---6  \
+--   /|\ /|\  \
+--  1 | 9 | 3  |
+-- / \|/ \|/ \/
+-- |  8---7  /\
+-- |   \ /  / |
+-- |    4--/  |
+--  \--------/
+pyramid :: Cluster
+pyramid = cluster
+    9
+    [(1, 5), (1, 8),
+     (2, 5), (2, 6),
+     (3, 6), (3, 7),
+     (4, 8), (4, 7),
+     (5, 6), (5, 8),
+     (7, 6), (7, 8),
+     (9, 5), (9, 6),
+     (9, 8), (9, 7),
+     (2, 4), (1, 3)]
+    (Map.fromList [(FromLeft, [(3, 1)]),
+                   (FromRight, [(1, 3)]),
+                   (FromDown, [(2, 4)]),
+                   (FromUp, [(4, 2)])])
